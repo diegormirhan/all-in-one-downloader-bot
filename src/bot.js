@@ -1,6 +1,7 @@
 require('dotenv').config()
 const scrapper = require('./scrapper');
 const telegramBot = require('node-telegram-bot-api');
+const instaScrapper = require('../handlers/instagram')
 
 const token = process.env.TELEGRAM_API
 
@@ -19,8 +20,24 @@ bot.onText(/\/help/, function(msg) {
 })
 
 bot.on('message', async function(msg) {
-    if (msg.text.startsWith('https://')) {
-        chatId = msg.chat.id
-    }
+    const chatId = msg.chat.id
+    const jsonRespose = await scrapper(msg.text)
 
+    if (msg.text.startsWith('https://www.instagram.com')) {
+        await instaScrapper(bot, chatId, jsonRespose, scrapper)
+    } else if (msg.text.startsWith('https://youtube.com') || msg.text.startsWith('https://youtu.be')){
+        
+    } else if (msg.text.startsWith('https://twitter.com')){
+        
+    } else if (msg.text.startsWith('https://pinterest.com')){
+        
+    } else if (msg.text.startsWith('https://facebook.com')){
+        
+    } else if (msg.text.startsWith('https://reddit.com')){
+        
+    } else if (msg.text.startsWith('https://souncloud.com')){
+        
+    } else if (msg.text.startsWith('https://tiktok.com')){
+        
+    }
 })
