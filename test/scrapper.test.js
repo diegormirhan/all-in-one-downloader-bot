@@ -13,14 +13,14 @@ const options = {
     'X-RapidAPI-Host': APIHost
   },
   data: {
-    url: 'https://www.tiktok.com/@huyquanhoaofficial/video/7241902800068709638?is_from_webapp=1&sender_device=pc'
+    url: 'https://www.instagram.com/p/CxIrINZMQv-/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA=='
   }
 };
 
 const runScrapper = async () => {
     try {
         const response = await axios.request(options);
-        console.log(response.data);
+        console.log(response.data.medias);
     } catch (error) {
         console.error(error);
     }
