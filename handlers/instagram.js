@@ -22,4 +22,7 @@ const instaScrapper = (bot, chatId, jsonRespose) => {
     }
 }
 
-module.exports = instaScrapper
+module.exports = {
+    linkPrefix: 'https://www.instagram.com',
+    handle: instaScrapper
+}

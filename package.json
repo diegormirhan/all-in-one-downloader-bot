@@ -15,6 +15,6 @@
   },
   "scripts": {
     "start": "nodemon app.js",
-    "test": "mocha ./tests/bot.test.js"
+    "test": "nodemon ./test/bot.test.js"
   }
 }
