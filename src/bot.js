@@ -2,12 +2,26 @@ require('dotenv').config()
 const scrapper = require('./scrapper');
 const telegramBot = require('node-telegram-bot-api');
 const instaScrapper = require('../handlers/instagram')
+const fs = require('fs');
 const path = require('path');
-const requireAll = require('require-all');
 
-// Importing all handlers
+// Read the handlers
+const handlers = {};
 const folderPath = path.join(__dirname, '../handlers');
-const handlers = requireAll({ dirname: folderPath });
+const files = fs.readdirSync(folderPath);
+
+// Load the handlers
+files.forEach(file => {
+  if (file.endsWith('.js')) {
+    const handlerBaseName = path.basename(file, '.js');
+    const handlerModule = require(path.join(folderPath, file));
+    handlers[handlerBaseName] = handlerModule;
+  }
+});
+
+console.log(handlers);
+
+
 
 // Telegram API
 const token = process.env.TELEGRAM_API
@@ -32,23 +46,10 @@ bot.onText(/\/help/, function(msg) {
 // Listening to the user message and return media file from social media
 bot.on('message', async function(msg) {
     const chatId = msg.chat.id
-    const jsonRespose = await scrapper(msg.text)
-    console.log('test')
-    if (msg.text.startsWith('https://www.instagram.com')) {
-        
-    } else if (msg.text.startsWith('https://youtube.com') || msg.text.startsWith('https://youtu.be')){
-        
-    } else if (msg.text.startsWith('https://twitter.com')){
-        
-    } else if (msg.text.startsWith('https://pinterest.com')){
-        
-    } else if (msg.text.startsWith('https://facebook.com')){
-        
-    } else if (msg.text.startsWith('https://reddit.com')){
-        
-    } else if (msg.text.startsWith('https://souncloud.com')){
-        
-    } else if (msg.text.startsWith('https://tiktok.com')){
-        
+    const jsonResponse = await scrapper(msg.text)
+    for (const handlerName in handlers) {
+    if (msg.text.startsWith(handlers[handlerName].linkPrefix)) {
+        bot.sendMessage(chatId, handlers[handlerName].handle(bot, chatId, jsonResponse))
+    }
     }
 })

@@ -1,8 +1,7 @@
-const instaScrapper = (bot, chatId, jsonRespose) => {
+const instaScrapper = (bot, chatId, jsonResponse) => {
     try {
-        console.log('working')
         bot.sendMessage(chatId, 'Processing your link, please wait...')
-        const medias = jsonRespose.medias
+        const medias = jsonResponse.medias
         if (medias.length > 0) {
             medias.forEach(media => {
                 if (media.type === 'video') {
@@ -14,10 +13,9 @@ const instaScrapper = (bot, chatId, jsonRespose) => {
                 }
             })
         } else {
-            bot.sendMessage('Could not find the media for that link. Please try again');
+            bot.sendMessage(chatId, 'Could not find the media for that link. Please try again');
         }
     } catch (error) {
-        console.log(error)
         bot.sendMessage(chatId, 'An error ocurred while processing the link. Try again!');
     }
 }
