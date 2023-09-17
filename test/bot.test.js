@@ -1,6 +1,5 @@
 require('dotenv').config()
 const telegramBot = require('node-telegram-bot-api');
-const scrapper = require('../src/scrapper')
 const { expect } = require('chai')
 
 const path = require('path');
@@ -41,24 +40,10 @@ bot.onText(/\/start/, (msg) => {
 });
 
 // Lidando com as ações de clique nos botões inline
-bot.on('callback_query', (query) => {
-  const chatId = query.message.chat.id;
-  const data = query.data;
-
-  // Trate cada botão inline individualmente
-  if (data === 'button_1') {
-    bot.sendMessage(chatId, 'Você escolheu o Botão 1!');
-  } else if (data === 'button_2') {
-    bot.sendMessage(chatId, 'Você escolheu o Botão 2!');
-  }
-
-  // Você pode adicionar mais lógica aqui para responder a outros botões inline
-});
 
 bot.on('message', async function (msg) {
     const jsonResponse = await scrapper(msg.text)
     const chatId = msg.chat.id
-
     bot.sendMessage(chatId, handlers['instagram'].handle(bot, chatId, jsonResponse))
-    
+    console.log(jsonResponse);
 })
