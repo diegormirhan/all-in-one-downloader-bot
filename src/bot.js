@@ -49,7 +49,8 @@ bot.on('message', async function(msg) {
     const jsonResponse = await scrapper(msg.text)
     for (const handlerName in handlers) {
     if (msg.text.startsWith(handlers[handlerName].linkPrefix)) {
-        bot.sendMessage(chatId, handlers[handlerName].handle(bot, chatId, jsonResponse))
+        handlers[handlerName].handle(bot, chatId, jsonResponse)
+        break
     }
     }
 })
