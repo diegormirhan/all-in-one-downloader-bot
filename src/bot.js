@@ -2,25 +2,13 @@ require('dotenv').config()
 const scrapper = require('./scrapper');
 const telegramBot = require('node-telegram-bot-api');
 const instaScrapper = require('../handlers/instagram')
-const fs = require('fs');
 const path = require('path');
+const requireAll = require('require-all');
 
-// Read the handlers
-const handlers = {};
+// Import handlers
 const folderPath = path.join(__dirname, '../handlers');
-const files = fs.readdirSync(folderPath);
-
-// Load the handlers
-files.forEach(file => {
-  if (file.endsWith('.js')) {
-    const handlerBaseName = path.basename(file, '.js');
-    const handlerModule = require(path.join(folderPath, file));
-    handlers[handlerBaseName] = handlerModule;
-  }
-});
-
-console.log(handlers);
-
+const modules = requireAll({dirname: folderPath});
+console.log(modules)
 
 
 // Telegram API
@@ -47,9 +35,9 @@ bot.onText(/\/help/, function(msg) {
 bot.on('message', async function(msg) {
     const chatId = msg.chat.id
     const jsonResponse = await scrapper(msg.text)
-    for (const handlerName in handlers) {
-    if (msg.text.startsWith(handlers[handlerName].linkPrefix)) {
-        handlers[handlerName].handle(bot, chatId, jsonResponse)
+    for (const handlerName in modules) {
+    if (msg.text.startsWith(modules[handlerName].linkPrefix)) {
+        modules[handlerName].handle(bot, chatId, jsonResponse)
         break
     }
     }
