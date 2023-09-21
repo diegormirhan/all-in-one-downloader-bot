@@ -13,14 +13,14 @@ const options = {
     'X-RapidAPI-Host': APIHost
   },
   data: {
-    url: 'https://www.instagram.com/p/CxIrINZMQv-/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA=='
+    url: 'https://br.pinterest.com/pin/58757970133022487/'
   }
 };
 
 const runScrapper = async () => {
     try {
         const response = await axios.request(options);
-        console.log(response.data.medias);
+        console.log(response.data.medias.reverse()[0]);
     } catch (error) {
         console.error(error);
     }
