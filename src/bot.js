@@ -34,10 +34,10 @@ bot.onText(/\/help/, function(msg) {
 // Listening to the user message and return media file from social media
 bot.on('message', async function(msg) {
     const chatId = msg.chat.id
-    const jsonResponse = await scrapper(msg.text)
+    const medias = await scrapper(msg.text)
     for (const handlerName in modules) {
     if (msg.text.startsWith(modules[handlerName].linkPrefix)) {
-        modules[handlerName].handle(bot, chatId, jsonResponse)
+        await modules[handlerName].handle(bot, chatId, medias)
         break
     }
     }

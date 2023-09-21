@@ -1,7 +1,6 @@
-const instaScrapper = (bot, chatId, jsonResponse) => {
+const instaScrapper = async (bot, chatId, medias) => {
     try {
-        bot.sendMessage(chatId, 'Processing your link, please wait...')
-        const medias = jsonResponse.medias
+        await bot.sendMessage(chatId, 'Processing your link, please wait...')
         if (medias.length > 0) {
             medias.forEach(media => {
                 if (media.type === 'video') {
