@@ -13,14 +13,14 @@ const options = {
     'X-RapidAPI-Host': APIHost
   },
   data: {
-    url: 'https://br.pinterest.com/pin/58757970133022487/'
+    url: 'https://www.facebook.com/reel/1273876849979229'
   }
 };
 
 const runScrapper = async () => {
     try {
         const response = await axios.request(options);
-        console.log(response.data.medias.reverse()[0]);
+        console.log(response.data.medias);
     } catch (error) {
         console.error(error);
     }
