@@ -1,3 +1,5 @@
+const {errHandler, linkError, mediaError} = require('../error/error-handler')
+
 const instaScrapper = async (bot, chatId, medias) => {
     try {
         await bot.sendMessage(chatId, 'Processing your link, please wait...')
@@ -8,14 +10,14 @@ const instaScrapper = async (bot, chatId, medias) => {
                 } else if (media.type === 'image') {
                     bot.sendPhoto(chatId, media.url)
                 } else {
-                    bot.sendMessage(chatId, 'There was an error sending your link, please try again.');
+                    mediaError(bot, chatId)
                 }
             })
         } else {
-            bot.sendMessage(chatId, 'Could not find the media for that link. Please try again');
+            linkError(bot, chatId)
         }
     } catch (error) {
-        bot.sendMessage(chatId, 'An error ocurred while processing the link. Try again!');
+        errHandler(error, bot, chatId);
     }
 }
 
