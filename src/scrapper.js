@@ -20,7 +20,7 @@ const scrapper = async (link) => {
 
     try {
         const response = await axios.request(options);
-        return response.data.medias
+        return Object.values(response.data.medias)
     } catch (error) {
         return error;
     }
