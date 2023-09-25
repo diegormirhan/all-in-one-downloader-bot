@@ -3,7 +3,7 @@ const {errHandler, linkError, mediaError} = require('../error/error-handler')
 const faceScrapper = async (bot, chatId, medias) => {
     try {
         await bot.sendMessage(chatId, 'Processing your link, please wait...')
-        await bot.sendVideo(chatId, medias[0].url)
+        bot.sendVideo(chatId, medias[0].url)
     } catch (error) {
         errHandler(error, bot, chatId)
     }
