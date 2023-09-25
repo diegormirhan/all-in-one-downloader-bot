@@ -13,14 +13,14 @@ const options = {
     'X-RapidAPI-Host': APIHost
   },
   data: {
-    url: 'https://youtu.be/pzauXRZEpC4?si=KHtAnzRlm6ClMBVW'
+    url: 'https://soundcloud.com/user-901031171/sets/never-let-go-of-your-dreams?si=c00207524a364a4caae6b278acf31b2a'
   }
 };
 
 const runScrapper = async () => {
     try {
         const response = await axios.request(options);
-        console.log(response.data.medias);
+        console.log(Object.values(response.data.medias));
     } catch (error) {
         console.error(error);
     }
