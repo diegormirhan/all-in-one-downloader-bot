@@ -1,3 +1,5 @@
+const {errHandler, linkError, mediaError} = require('../error/error-handler')
+
 const youtubeScrapper = async (bot, chatId, medias) => {
     try {
         
