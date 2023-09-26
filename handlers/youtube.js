@@ -6,7 +6,7 @@ const youtubeScrapper = async (bot, chatId, medias) => {
         const sortedMedias = medias.sort((a, b) => (b.bitrate || 0) - (a.bitrate || 0));
         if (medias.length > 0) {
             if (sortedMedias[0].extension === 'mp4') {
-                bot.sendVideo(chatId, sortedMedias[0].url)
+                bot.sendMessage(chatId, `Clique [aqui](${sortedMedias[0].url}) para acessar sua mídia`, { parse_mode: 'Markdown' })
             } else {
                 linkError(bot, chatId)
             }
