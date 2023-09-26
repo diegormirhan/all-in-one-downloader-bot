@@ -1,4 +1,4 @@
-const {errHandler, linkError, mediaError} = require('../error/error-handler')
+const { errHandler, linkError, mediaError } = require('../error/error-handler')
 
 const soundcloudScrapper = async (bot, chatId, medias) => {
     try {
