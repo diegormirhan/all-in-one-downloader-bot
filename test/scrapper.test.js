@@ -13,17 +13,17 @@ const options = {
     'X-RapidAPI-Host': APIHost
   },
   data: {
-    url: 'https://soundcloud.com/user-901031171/sets/never-let-go-of-your-dreams?si=c00207524a364a4caae6b278acf31b2a'
+    url: 'https://www.tiktok.com/@victoriamatosao/video/7282083615591222533?is_from_webapp=1&sender_device=pc'
   }
 };
 
 const runScrapper = async () => {
-    try {
-        const response = await axios.request(options);
-        console.log(Object.values(response.data.medias));
-    } catch (error) {
-        console.error(error);
-    }
+  try {
+    const response = await axios.request(options);
+    console.log(Object.values(response.data.medias));
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 runScrapper()
