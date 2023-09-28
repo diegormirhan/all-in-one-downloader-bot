@@ -1,5 +1,8 @@
 require('dotenv').config()
-const bot = require('./src/bot');
+const bot = require('./src/telegram');
+const getMedia = require('./bot/get-media')
+const botCommands = require('./bot/bot-commands')
+const getUserID = require('./bot/get-userId')
 const fastify = require('fastify')({
     logger: false
 })
