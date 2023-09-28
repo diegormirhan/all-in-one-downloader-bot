@@ -16,6 +16,7 @@ This project is entirely my creation, developed from scratch, showcasing my expe
 - **require-all:** A tool for easily requiring all files within a directory.
 - **Chai and Mocha:** Testing frameworks for ensuring code quality.
 - **Nodemon:** A utility that monitors for changes in your source code and automatically restarts your server.
+- **Mongo DataBase:** A no-sql database that is used to store user id's
 
 ## Getting Started
 
@@ -34,9 +35,12 @@ To run this project locally, follow these steps:
 
 3. Create a `.env` file in the project root directory and add the following environment variables:
    ```env
-   RAPID_API_KEY=your-rapid-api-key
-   RAPID_API_HOST=your-rapid-api-host
-   TELEGRAM_API=your-telegram-api-token
+   RAPID_API_KEY = your-rapid-api-key
+   RAPID_API_HOST = your-rapid-api-host
+   TELEGRAM_API = your-telegram-api-token
+   DATABASE_URL = your-mongodb-token-url
+   ADMIN_ID = your-admin-chat-id
+   ADMIN_PASSWORD = your-admin-password
    ```
 
    You can obtain the `RAPID_API_KEY` and `RAPID_API_HOST` by signing up for the [Auto Download All in One API on RapidAPI](https://rapidapi.com/nguyenmanhict-MuTUtGWD7K/api/auto-download-all-in-one).
