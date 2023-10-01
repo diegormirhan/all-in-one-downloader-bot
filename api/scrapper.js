@@ -32,5 +32,4 @@ const scrapper = async (link) => {
     }
 }
 
-
 module.exports = scrapper
