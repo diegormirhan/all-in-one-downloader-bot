@@ -1,5 +1,11 @@
 const { idCollection } = require('../database/mongodb')
 
+/**
+ * Retrieves the user ID associated with the given chat ID.
+ *
+ * @param {string} chatId - The ID of the chat.
+ * @return {Promise} A Promise that resolves to the user ID.
+ */
 const getUserID = async (chatId) => {
     try {
         const doc = {
