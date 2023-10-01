@@ -4,6 +4,12 @@ const axios = require('axios');
 const APIKey = process.env.RAPID_API_KEY
 const APIHost = process.env.RAPID_API_HOST
 
+/**
+ * Scrapes the provided link and returns an array of media objects.
+ *
+ * @param {string} link - The link to be scraped.
+ * @return {Array} An array of media objects.
+ */
 const scrapper = async (link) => {
     const options = {
         method: 'POST',
