@@ -1,5 +1,13 @@
 const {errHandler, linkError, mediaError} = require('../error/error-handler')
 
+/**
+ * Scrapes Twitter media and sends it to a specified chat ID using a bot.
+ *
+ * @param {Bot} bot - the bot instance used to send messages and media
+ * @param {string} chatId - the ID of the chat to send the media to
+ * @param {Array} medias - an array of media objects to scrape and send
+ * @return {Promise} a promise that resolves when the media has been sent
+ */
 const twitterScrapper = async (bot, chatId, medias) => {
     try {
         await bot.sendMessage(chatId, 'Processing your link, please wait...')
