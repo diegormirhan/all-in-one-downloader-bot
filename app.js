@@ -7,6 +7,8 @@ const fastify = require('fastify')({
     logger: false
 })
 
+
+// Declaring fastify 3000 port route
 fastify.listen({port: process.env.PORT || 3000}, function (err, adress) {
     if (err) {
         fastify.log.error(err);
