@@ -23,6 +23,6 @@ bot.onText(/\/update/, function(msg) {
     if (chatId == adminId) {
         userUpdates(bot, chatId)
     } else {
-        bot.sendMessage(chatId, 'Você não tem permissão para usar este comando!.')
+        bot.sendMessage(chatId, "You don't have permission to use this command!")
     }
 })
