@@ -7,7 +7,7 @@ bot.onText(/\/start/, function(msg) {
     const chatId = msg.chat.id
     const message = "Welcome to the *All In One Bot Downloader*\nYou can download media from your favorite social media.\nFor help, just type /help in the chat."
     bot.sendMessage(chatId, message, {parse_mode: 'Markdown'});
-    runMongoDb(chatId);
+    runMongoDb(msg, chatId);
 })
 
 // Create /help command

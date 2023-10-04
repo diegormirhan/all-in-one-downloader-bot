@@ -6,10 +6,22 @@ const { idCollection } = require('../database/mongodb')
  * @param {string} chatId - The ID of the chat.
  * @return {Promise} A Promise that resolves to the user ID.
  */
-const getUserID = async (chatId) => {
+const getUserID = async (msg, chatId) => {
     try {
+        const formattedDate = new Date().toLocaleString('pt-BR', {
+            timeZone: 'America/Sao_Paulo',
+            timeZoneName: 'short',
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        })
+
         const doc = {
-            id: chatId
+            id: chatId,
+            username: msg.from.first_name,
+            cratedAt: formattedDate
         }
 
         const existingDoc = await idCollection.findOne({id: chatId});
