@@ -4,10 +4,10 @@
   "dependencies": {
     "axios": "^1.5.0",
     "dotenv": "^16.3.1",
+    "express": "^4.17.1",
     "mongodb": "^6.1.0",
     "node-telegram-bot-api": "^0.63.0",
-    "require-all": "^3.0.0",
-    "express": "^4.17.1"
+    "require-all": "^3.0.0"
   },
   "devDependencies": {
     "chai": "^4.3.8",
