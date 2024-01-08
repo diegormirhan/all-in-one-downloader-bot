@@ -14,7 +14,7 @@
     "nodemon": "^3.0.1"
   },
   "scripts": {
-    "start": ""set PORT=3000 && node app.js",
+    "start": "set PORT=3000 && node app.js",
     "dev": "nodemon app.js"
   }
 }
