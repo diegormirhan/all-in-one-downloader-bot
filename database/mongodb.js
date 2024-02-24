@@ -10,6 +10,7 @@ const idDatabase = client.db('chatId');
 // Connecting to the Chat Id Collection
 const idCollection = idDatabase.collection('Chat Id Collection')
 
+// Exporting the database
 module.exports = {
     client,
     idDatabase,
