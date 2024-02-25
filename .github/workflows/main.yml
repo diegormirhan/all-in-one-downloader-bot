@@ -1,6 +1,0 @@
-- uses: AlexxNB/caprover-action@v1
-   with:
-        server: '${{ secrets.SERVER }}'
-        password: '${{ secrets.PASSWORD }}'
-        appname: '${{ secrets.APPNAME }}'
-        branch: '${{ secrets.BRANCH }}'
