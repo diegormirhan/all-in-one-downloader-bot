@@ -1,6 +1,6 @@
 
 /**
- * Handles an error by sending a message to the specified chat ID.
+ * Handles an error by sending a message to the specified chat ID
  *
  * @param {Error} error - The error that occurred while processing the link.
  * @param {Bot} bot - The bot object used to send the message.
