@@ -12,7 +12,7 @@ const modules = requireAll({ dirname: folderPath });
 // Listening to the user message and return media file from social media
 bot.on('message', async function (msg) {
     const chatId = msg.chat.id
-    if (!msg.text.startsWith('/')) {
+    if (typeof(msg.text) === 'string' && !msg.text.startsWith('/')) {
         bot.sendMessage(chatId, 'Processing your link, please wait...')
 
         const link = msg.text.trim()
