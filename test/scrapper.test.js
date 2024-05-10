@@ -13,7 +13,7 @@ const options = {
     'X-RapidAPI-Host': APIHost
   },
   data: {
-    url: 'https://www.tiktok.com/@victoriamatosao/video/7282083615591222533?is_from_webapp=1&sender_device=pc'
+    url: 'https://br.pinterest.com/pin/5136987069056097/'
   }
 };
 

@@ -34,6 +34,9 @@ const getUserID = async (msg, chatId) => {
             const result = await idCollection.insertOne(doc)
             console.log(`A document was inserted with the _id: ${result.insertedId}`)
         } else {
+            await idCollection.updateOne({ id: chatId }, {
+                $set: { lang: msg.from.language_code }
+            });
             console.log('The chatID is already on the database')
         }
     }  catch(error) {
