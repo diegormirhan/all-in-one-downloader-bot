@@ -12,35 +12,31 @@ const modules = requireAll({ dirname: folderPath });
 // Listening to the user message and return media file from social media
 bot.on('message', async function (msg) {
     const chatId = msg.chat.id
-    try {
-        const medias = await scrapper(msg.text)
-        if (typeof (msg.text) === 'string') {
-            for (const handlerName in modules) {
-                if (msg.text.startsWith(modules[handlerName].linkPrefix)) {
-                    await modules[handlerName].handle(bot, chatId, medias)
-                    console.log('Valid Media Sent!')
-                    const existingDoc = await idCollection.findOne({id: chatId});
-                    const usageKey = Object.keys(existingDoc)
-                    if (!usageKey.includes('usage')) {
-                        await idCollection.updateOne({id: chatId}, {$set: {
-                            first_name: msg.from.first_name, 
-                            username: msg.from.username, 
-                            lang: msg.from.language_code, 
-                            usage: 1
-                        }});
-                    } else {
-                        await idCollection.updateOne({id: chatId}, {$inc: {usage: 1}});
-                    }
-                    bot.sendMessage(chatId, '🌟 We need your support! Every donation helps us cover server and software costs to keep our bot running. Thank you! 🙏💖\n\n*https://buymeacoffee.com/diegomirhan*', { parse_mode: 'Markdown', disable_web_page_preview: true })
+    if (!msg.text.startsWith('/')) {
+        bot.sendMessage(chatId, 'Processing your link, please wait...')
 
-                    break
-                }
+        const link = msg.text.trim()
+        const handler = Object.values(modules).find(m => link.startsWith(m.linkPrefix))
+
+        try {
+        const medias = await scrapper(link)
+        if (handler) {
+            await handler.handle(bot, chatId, medias)
+            console.log('Valid Media Sent!')
+
+            const existingDoc = await idCollection.findOne({ id: chatId });
+
+            await idCollection.updateOne({ id: chatId }, {
+                $inc: { usage: 1 },
+                $set: { lang: msg.from.language_code }
+            });
+           
+            if (existingDoc.usage >= 6 && existingDoc.usage % 3 === 0) {
+                bot.sendMessage(chatId, '🌟 We need your support! Every donation helps us cover server and software costs to keep our bot running. Thank you! 🙏💖\n\n*https://buymeacoffee.com/diegomirhan*', { parse_mode: 'Markdown', disable_web_page_preview: true })
             }
-        } else {
-            bot.sendMessage(chatId, '*Please send a valid message containing the link*', { parse_mode: 'Markdown' })
-            console.log('Not a valid message sent - Err 404')
         }
     } catch (error) {
-        console.error('Error handling message', error)
+        bot.sendMessage(chatId, 'There was an error processing your link, please try again', { parse_mode: 'Markdown' })
+    }
     }
 })
