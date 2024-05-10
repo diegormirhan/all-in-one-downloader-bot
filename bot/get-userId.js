@@ -20,10 +20,10 @@ const getUserID = async (msg, chatId) => {
 
         const doc = {
             id: chatId,
-            first_name: msg.from.first_name,
             username: msg.from.username,
-            lang: msg.from.language_code,
             createdAt: formattedDate,
+            first_name: msg.from.first_name,
+            lang: msg.from.language_code,
             usage: 0
 
         }
