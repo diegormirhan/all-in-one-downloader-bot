@@ -2,6 +2,13 @@ const { bot } = require('../src/telegram')
 const runMongoDb = require('../bot/get-userId')
 const { userUpdates } = require('./user-updates')
 
+/*
+// Create the commands
+bot.onText(/\/start/, startCommand)
+bot.onText(/\/help/, helpCommand)
+bot.onText(/\/portrait_random/, updateCommand)
+*/
+
 // Create /start command
 bot.onText(/\/start/, function(msg) {
     const chatId = msg.chat.id

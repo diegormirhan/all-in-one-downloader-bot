@@ -32,7 +32,22 @@ bot.on('message', async function (msg) {
             });
            
             if (existingDoc.usage >= 6 && existingDoc.usage % 3 === 0) {
-                bot.sendMessage(chatId, '🌟 We need your support! Every donation helps us cover server and software costs to keep our bot running. Thank you! 🙏💖\n\n*https://buymeacoffee.com/diegomirhan*', { parse_mode: 'Markdown', disable_web_page_preview: true })
+                const options = {
+                    parse_mode: 'Markdown',
+                    disable_web_page_preview: true,
+                    reply_markup: {
+                        inline_keyboard: [
+                            [
+                                {
+                                    text: 'Donate',
+                                    url: 'https://buymeacoffee.com/diegomirhan'
+                                }
+                            ]
+                        ]
+                    }
+                }
+
+                bot.sendMessage(chatId, '🌟 We need your support! Every donation helps us cover server and software costs to keep our bot running. Thank you! 🙏💖', options)
             }
         }
     } catch (error) {
