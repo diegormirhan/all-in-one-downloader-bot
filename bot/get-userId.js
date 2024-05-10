@@ -20,8 +20,12 @@ const getUserID = async (msg, chatId) => {
 
         const doc = {
             id: chatId,
-            username: msg.from.first_name,
-            cratedAt: formattedDate
+            first_name: msg.from.first_name,
+            username: msg.from.username,
+            lang: msg.from.language_code,
+            cratedAt: formattedDate,
+            usage: 0
+
         }
 
         const existingDoc = await idCollection.findOne({id: chatId});

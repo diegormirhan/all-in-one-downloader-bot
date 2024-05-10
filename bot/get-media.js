@@ -2,6 +2,7 @@ const { bot } = require('../src/telegram')
 const path = require('path');
 const requireAll = require('require-all');
 const scrapper = require('../api/scrapper');
+const { idCollection } = require('../database/mongodb')
 
 // Import handlers
 const folderPath = path.join(__dirname, '../handlers');
@@ -17,6 +18,21 @@ bot.on('message', async function (msg) {
             for (const handlerName in modules) {
                 if (msg.text.startsWith(modules[handlerName].linkPrefix)) {
                     await modules[handlerName].handle(bot, chatId, medias)
+
+                    const existingDoc = await idCollection.findOne({id: chatId});
+                    const usageKey = Object.keys(existingDoc)
+                    if (!usageKey.includes('usage')) {
+                        await idCollection.updateOne({id: chatId}, {$set: {
+                            first_name: msg.from.first_name, 
+                            username: msg.from.username, 
+                            lang: msg.from.language_code, 
+                            usage: 1
+                        }});
+                    } else {
+                        await idCollection.updateOne({id: chatId}, {$inc: {usage: 1}});
+                    }
+                    bot.sendMessage(chatId, '🌟 We need your support! Every donation helps us cover server and software costs to keep our bot running. Thank you! 🙏💖\n\n*https://buymeacoffee.com/diegomirhan*', { parse_mode: 'Markdown', disable_web_page_preview: true })
+                    
                     break
                 }
             }
