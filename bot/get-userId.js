@@ -23,7 +23,7 @@ const getUserID = async (msg, chatId) => {
             first_name: msg.from.first_name,
             username: msg.from.username,
             lang: msg.from.language_code,
-            cratedAt: formattedDate,
+            createdAt: formattedDate,
             usage: 0
 
         }
