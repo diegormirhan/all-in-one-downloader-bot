@@ -10,7 +10,6 @@ const {errHandler, linkError, mediaError} = require('../error/error-handler')
  */
 const instaScrapper = async (bot, chatId, medias) => {
     try {
-        await bot.sendMessage(chatId, 'Processing your link, please wait...')
         if (medias.length > 0) {
             medias.forEach(media => {
                 if (media.type === 'video') {

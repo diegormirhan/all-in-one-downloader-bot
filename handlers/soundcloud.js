@@ -10,7 +10,6 @@ const { errHandler, linkError, mediaError } = require('../error/error-handler')
  */
 const soundcloudScrapper = async (bot, chatId, medias) => {
     try {
-        await bot.sendMessage(chatId, 'Processing your link, please wait...');
         console.log(medias)
         if (medias.length > 0) {
             if (medias[0].type === 'audio') {
