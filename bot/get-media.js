@@ -18,7 +18,7 @@ bot.on('message', async function (msg) {
             for (const handlerName in modules) {
                 if (msg.text.startsWith(modules[handlerName].linkPrefix)) {
                     await modules[handlerName].handle(bot, chatId, medias)
-
+                    console.log('Valid Media Sent!')
                     const existingDoc = await idCollection.findOne({id: chatId});
                     const usageKey = Object.keys(existingDoc)
                     if (!usageKey.includes('usage')) {
@@ -32,7 +32,7 @@ bot.on('message', async function (msg) {
                         await idCollection.updateOne({id: chatId}, {$inc: {usage: 1}});
                     }
                     bot.sendMessage(chatId, '🌟 We need your support! Every donation helps us cover server and software costs to keep our bot running. Thank you! 🙏💖\n\n*https://buymeacoffee.com/diegomirhan*', { parse_mode: 'Markdown', disable_web_page_preview: true })
-                    
+
                     break
                 }
             }
