@@ -13,14 +13,16 @@ const options = {
     'X-RapidAPI-Host': APIHost
   },
   data: {
-    url: 'https://br.pinterest.com/pin/5136987069056097/'
+    url: 'https://youtu.be/mNJl1IEZjZc'
   }
 };
 
 const runScrapper = async () => {
   try {
     const response = await axios.request(options);
-    console.log(Object.values(response.data.medias));
+    const obj = Object.values(response.data.medias);
+    console.log(obj)
+    
   } catch (error) {
     console.error(error);
   }

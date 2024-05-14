@@ -12,7 +12,7 @@ const modules = requireAll({ dirname: folderPath });
 // Listening to the user message and return media file from social media
 bot.on('message', async function (msg) {
     const chatId = msg.chat.id
-    if (typeof (msg.text) === 'string' && !msg.text.startsWith('/')) {
+    if (typeof (msg.text) === 'string' && !msg.text.startsWith('/') && msg.text.startsWith('http')) {
         bot.sendMessage(chatId, 'Processing your link, please wait...')
 
         const link = msg.text.trim()
@@ -49,7 +49,8 @@ bot.on('message', async function (msg) {
                 }
             }
         } catch (error) {
-            bot.sendMessage(chatId, 'There was an error processing your link, please try again', { parse_mode: 'Markdown' })
+            console.log("Failed to send media!")
+            bot.sendMessage(chatId, 'There was an error processing your link, please try again', { parse_mode: 'Markdown' }) 
         }
     }
 })

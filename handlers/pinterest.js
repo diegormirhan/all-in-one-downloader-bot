@@ -9,15 +9,15 @@ const {errHandler, linkError, mediaError} = require('../error/error-handler')
  * @return {Promise} A promise that resolves when the media is sent.
  */
 const pinScrapper = async (bot, chatId, medias) => {
-    const media = medias.reverse()[0]
+    console.log("bot: ", medias)
     try {
-        if (media.type === 'video') {
-            bot.sendVideo(chatId, media.url)
-        }
-        else if (media.type === 'image') {
-            bot.sendPhoto(chatId, media.url)
-        } else {
-            linkError(bot, chatId)
+        for (item of medias) {
+            if (item['type'] === 'video') {
+                bot.sendVideo(chatId, item['url'])
+                break
+            } else {
+                linkError(bot, chatId)
+            }
         }
     } catch (error) {
         errHandler(error, bot, chatId)
