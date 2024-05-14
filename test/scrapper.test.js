@@ -20,8 +20,8 @@ const options = {
 const runScrapper = async () => {
   try {
     const response = await axios.request(options);
-    const obj = Object.values(response.data.medias);
-    console.log(obj)
+    const obj = Array.from(response.data.medias);
+    console.log(Object.values(response.data.medias));
     
   } catch (error) {
     console.error(error);

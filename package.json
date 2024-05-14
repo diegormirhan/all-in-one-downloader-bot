@@ -6,6 +6,7 @@
     "bun": "^1.1.7",
     "dotenv": "^16.3.1",
     "mongodb": "^6.1.0",
+    "node-cache": "^5.1.2",
     "node-telegram-bot-api": "^0.65.1",
     "require-all": "^3.0.0"
   },

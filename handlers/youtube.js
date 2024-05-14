@@ -1,4 +1,6 @@
 const {errHandler, linkError, mediaError} = require('../error/error-handler')
+const NodeCache = require('node-cache')
+const cache = new NodeCache({ stdTTL: 600}) // 10 minutes TTL
 
 /**
  * Scrapes YouTube media from the given bot and chat ID.
@@ -9,20 +11,63 @@ const {errHandler, linkError, mediaError} = require('../error/error-handler')
  * @return {Promise} A Promise that resolves when the scraping is complete.
  */
 const youtubeScrapper = async (bot, chatId, medias) => {
-    try {
-        const sortedMedias = medias.sort((a, b) => (b.bitrate || 0) - (a.bitrate || 0));
-        if (medias.length > 0) {
-            if (sortedMedias[0].extension === 'mp4') {
-                bot.sendMessage(chatId, `Clique [aqui](${sortedMedias[0].url}) para acessar sua mídia`, { parse_mode: 'Markdown' })
-            } else {
-                linkError(bot, chatId)
-            }
-        } else {
-            mediaError(bot, chatId)
+    let linkTypes = []
+    let row = []
+    for (item of medias) {
+        const id = Math.random().toString(36).substring(2, 15);
+        cache.set(id, { url: item.url, type: item.type })
+
+        const button = {
+            text: `${item.extension} - ${item.quality}`,
+            callback_data: id
         }
-    } catch (error) {
-        errHandler(error, bot, chatId)
+        
+        row.push(button)
+        if ( row.length === 2) {
+            linkTypes.push(row)
+            row = []
+        }
     }
+
+    if (row.length > 0) {
+        linkTypes.push(row)
+    }
+    const options = {
+        parse_mode: 'Markdown',
+        reply_markup: {
+            inline_keyboard: linkTypes
+        }
+    }
+
+    bot.sendMessage(chatId, '*Choose an option below:*', options)
+
+    bot.on('callback_query', (query) => {
+        const chat_id = query.message.chat.id;
+        const id = query.data;
+
+        const data = cache.get(id)
+        if (!data) {
+            bot.sendMessage(chat_id, 'Invalid link');
+            return;
+        }
+
+        const url = data.url
+        const type = data.type
+
+        if (type === 'video') {
+            bot.sendVideo(chat_id, url)
+        }
+        else if(type === 'image') {
+            bot.sendPhoto(chat_id, url)
+        }
+        else if(type === 'audio') {
+            bot.sendAudio(chat_id, url)
+        }
+        else {
+            bot.sendMessage(chat_id, 'The link is not supported');
+        }
+        bot.answerCallbackQuery(query.id);
+      });
 }
 
 module.exports = {
