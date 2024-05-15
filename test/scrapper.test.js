@@ -13,7 +13,7 @@ const options = {
     'X-RapidAPI-Host': APIHost
   },
   data: {
-    url: 'https://youtu.be/mNJl1IEZjZc'
+    url: 'https://open.spotify.com/intl-pt/track/3PZAaFR5G3VEcrz2AljA41?si=d260e5148de140fa'
   }
 };
 

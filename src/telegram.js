@@ -7,6 +7,11 @@ const token = process.env.TEST_TELEGRAM_API
 // Declaring the bot
 const bot = new telegramBot(token, {polling: true});
 
+// Handling errors
+bot.on('polling_error', (error) => {
+    console.log('---- Telegram Polling Error ----');  // => 'EFATAL'
+  });
+
 // Exporting the bot instance
 module.exports = {
     bot
