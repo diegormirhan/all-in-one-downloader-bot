@@ -6,12 +6,10 @@
     "bun": "^1.1.7",
     "dotenv": "^16.3.1",
     "mongodb": "^6.1.0",
-    "node-telegram-bot-api": "^0.65.1",
-    "require-all": "^3.0.0"
+    "node-telegram-bot-api": "^0.65.1"
+
   },
   "devDependencies": {
-    "chai": "^4.3.8",
-    "mocha": "^10.2.0",
     "nodemon": "^3.0.1"
   },
   "scripts": {

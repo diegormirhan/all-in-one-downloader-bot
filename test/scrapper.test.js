@@ -13,14 +13,16 @@ const options = {
     'X-RapidAPI-Host': APIHost
   },
   data: {
-    url: 'https://br.pinterest.com/pin/5136987069056097/'
+    url: 'https://open.spotify.com/intl-pt/track/3PZAaFR5G3VEcrz2AljA41?si=d260e5148de140fa'
   }
 };
 
 const runScrapper = async () => {
   try {
     const response = await axios.request(options);
+    const obj = Array.from(response.data.medias);
     console.log(Object.values(response.data.medias));
+    
   } catch (error) {
     console.error(error);
   }

@@ -23,13 +23,12 @@ const scrapper = async (link) => {
             url: link
         }
     }
-
     try {
         const response = await axios.request(options);
-        return Object.values(response.data.medias)
+        return Object.values(response.data.medias);
     } catch (error) {
-        return error;
-    }
+        throw new Error('No media found');
+    } 
 }
 
 module.exports = scrapper
