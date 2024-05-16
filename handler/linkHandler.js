@@ -1,7 +1,8 @@
 const NodeCache = require('node-cache')
 const cache = new NodeCache({ stdTTL: 600}) // 10 minutes TTL
 const { audioHandler } = require('./audioHandler')
-const { videoHandler } = require('./videoHandler')
+const { getFileSize } = require('./getFileSize')
+const { shortenUrl } = require('./shortenUrl')
 
 const linkHandler = async (bot, chatId, medias) => {
     let linkTypes = []
@@ -49,6 +50,15 @@ const registerCallbackHandler = (bot) => {
 
         const url = data.url
         const type = data.type
+
+        const checkFileSize = await getFileSize(url);
+        const maxSize = 20 * 1024 * 1024
+        if (checkFileSize > maxSize) {
+            const shortLink = await shortenUrl(url)
+            bot.sendMessage(chat_id, `*The url you provided is too big to send as video on telegram.\nBut you can download it* [here](${shortLink})`, { parse_mode: 'Markdown'})
+            bot.answerCallbackQuery(query.id);
+            return;
+        }
 
         if (type === 'video') {
             bot.sendVideo(chat_id, url)
