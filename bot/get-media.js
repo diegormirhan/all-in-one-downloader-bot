@@ -19,7 +19,6 @@ bot.on('message', async function (msg) {
                 //await handler.handle(bot, chatId, medias)
                 await linkHandler(bot, chatId, medias)
                 console.log('Valid Media Sent!')
-
                 const existingDoc = await idCollection.findOne({ id: chatId });
 
                 await idCollection.updateOne({ id: chatId }, {
