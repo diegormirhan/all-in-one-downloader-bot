@@ -1,6 +1,7 @@
 const NodeCache = require('node-cache')
 const cache = new NodeCache({ stdTTL: 600}) // 10 minutes TTL
 const { audioHandler } = require('./audioHandler')
+const { videoHandler } = require('./videoHandler')
 
 const linkHandler = async (bot, chatId, medias) => {
     let linkTypes = []

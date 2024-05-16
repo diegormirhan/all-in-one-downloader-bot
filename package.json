@@ -8,6 +8,7 @@
     "mongodb": "^6.1.0",
     "node-cache": "^5.1.2",
     "node-telegram-bot-api": "^0.65.1",
+    "request": "^2.88.2",
     "require-all": "^3.0.0"
   },
   "devDependencies": {
