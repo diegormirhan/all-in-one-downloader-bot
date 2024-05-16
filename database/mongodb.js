@@ -2,7 +2,7 @@ require('dotenv').config()
 const MongoClient = require('mongodb').MongoClient;
 
 // Getting the database URL
-const uri = process.env.TEST_DATABASE_URL
+const uri = process.env.DATABASE_URL
 // Connecting to the MongoDB
 const client = new MongoClient(uri);
 // Connecting to the chatId database
