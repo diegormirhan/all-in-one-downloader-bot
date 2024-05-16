@@ -44,7 +44,8 @@ const registerCallbackHandler = (bot) => {
 
         const data = cache.get(id)
         if (!data) {
-            bot.sendMessage(chat_id, 'Invalid link');
+            await bot.sendMessage(chat_id, 'Invalid link');
+            bot.answerCallbackQuery(query.id)
             return;
         }
 
@@ -55,22 +56,22 @@ const registerCallbackHandler = (bot) => {
         const maxSize = 20 * 1024 * 1024
         if (checkFileSize > maxSize && type !== 'audio') {
             const shortLink = await shortenUrl(url)
-            bot.sendMessage(chat_id, `*The url you provided is too big to send as video on telegram.\nBut you can download it* [here](${shortLink})`, { parse_mode: 'Markdown'})
+            await bot.sendMessage(chat_id, `*The url you provided is too big to send as video on telegram.\nBut you can download it* [here](${shortLink})`, { parse_mode: 'Markdown'})
             bot.answerCallbackQuery(query.id);
             return;
         }
 
         if (type === 'video') {
-            bot.sendVideo(chat_id, url)
+            await bot.sendVideo(chat_id, url)
         }
         else if(type === 'image') {
-            bot.sendPhoto(chat_id, url)
+            await bot.sendPhoto(chat_id, url)
         }
         else if(type === 'audio') {
             await audioHandler(chat_id, bot, url)
         }
         else {
-            bot.sendMessage(chat_id, 'The link is not supported');
+            await bot.sendMessage(chat_id, 'The link is not supported');
         }
         bot.answerCallbackQuery(query.id);
       });
