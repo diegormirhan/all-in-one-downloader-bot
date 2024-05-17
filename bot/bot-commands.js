@@ -14,14 +14,14 @@ bot.onText(/\/donate/, donateCommand)
 async function startCommand(msg) {
     const chatId = msg.chat.id
     const message = "Welcome to the *All In One Bot Downloader*\nYou can download media from your favorite social media.\nFor help, just type /help in the chat."
-    await bot.sendMessage(chatId, message, {parse_mode: 'Markdown'});
+    await bot.sendMessage(chatId, message, { parse_mode: 'Markdown' });
     runMongoDb(msg, chatId);
 }
 
 async function helpCommand(msg) {
     const chatId = msg.chat.id
     const message = "You can download media from different sources, such as:\n*Instagram*\n*Twitter*\n*Pinterest*\n*TikTok*\n*YouTube*\n*Reddit*\n*Facebook*\n*SoundCloud*\nand many others...\n\n*Download Guide:* Just send the entire media link in the chat and wait for the bot response.\nEnjoy your bot :)"
-    await bot.sendMessage(chatId, message, {parse_mode: 'Markdown'});
+    await bot.sendMessage(chatId, message, { parse_mode: 'Markdown' });
 }
 
 async function updateCommand(msg) {
@@ -42,21 +42,20 @@ async function donateCommand(msg) {
         $set: { lang: msg.from.language_code }
     });
 
-    if (existingDoc.usage >= 3 && existingDoc.usage % 3 === 0) {
-        const donationsLink = donationLink(existingDoc.lang)
-        const options = {
-            parse_mode: 'Markdown',
-            disable_web_page_preview: true,
-            reply_markup: {
-                inline_keyboard: [
-                    [{
-                        text: 'Donate',
-                        url: donationsLink
-                    }]
-                ]
-            }
-        }
 
-        await bot.sendMessage(chatId, '🌟 We need your support! Every donation helps us cover server and software costs to keep our bot running. Thank you! 🙏💖', options)
+    const donationsLink = donationLink(existingDoc.lang)
+    const options = {
+        parse_mode: 'Markdown',
+        disable_web_page_preview: true,
+        reply_markup: {
+            inline_keyboard: [
+                [{
+                    text: 'Donate',
+                    url: donationsLink
+                }]
+            ]
+        }
     }
+
+    await bot.sendMessage(chatId, '🌟 We need your support! Every donation helps us cover server and software costs to keep our bot running. Thank you! 🙏💖', options)
 }
