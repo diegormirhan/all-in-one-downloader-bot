@@ -39,12 +39,14 @@ async function donateCommand(msg) {
     const existingDoc = await idCollection.findOne({ id: chatId });
 
     await idCollection.updateOne({ id: chatId }, {
-        $inc: { usage: 1 },
         $set: { lang: msg.from.language_code }
     });
 
     if (existingDoc.usage >= 3 && existingDoc.usage % 3 === 0) {
-        const donationsLink = donationLink(existingDoc.lang) || donationLink('en')
+        const donationsLink = donationLink(existingDoc.lang)
+        if (!donationsLink) {
+            donationsLink = donationLink('en')
+        }
         const options = {
             parse_mode: 'Markdown',
             disable_web_page_preview: true,
