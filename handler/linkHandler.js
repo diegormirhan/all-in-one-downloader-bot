@@ -54,12 +54,14 @@ const registerCallbackHandler = (bot) => {
 
         const checkFileSize = await getFileSize(url);
         const maxSize = 20 * 1024 * 1024
+        /*
         if (checkFileSize > maxSize && type !== 'audio') {
             const shortLink = await shortenUrl(url)
             await bot.sendMessage(chat_id, `*The url you provided is too big to send as video on telegram.\nBut you can download it* [here](${shortLink})`, { parse_mode: 'Markdown'})
             bot.answerCallbackQuery(query.id);
             return;
         }
+        */
 
         if (type === 'video') {
             await bot.sendVideo(chat_id, url)
