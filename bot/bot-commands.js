@@ -42,7 +42,6 @@ async function donateCommand(msg) {
         $set: { lang: msg.from.language_code }
     });
 
-
     const donationsLink = donationLink(existingDoc.lang)
     const options = {
         parse_mode: 'Markdown',
