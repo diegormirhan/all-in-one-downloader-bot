@@ -27,7 +27,7 @@ bot.on('message', async function (msg) {
                 });
 
                 if (existingDoc.usage >= 3 && existingDoc.usage % 3 === 0) {
-                    const donationsLink = donationLink(existingDoc.lang)
+                    const donationsLink = donationLink(existingDoc.lang) || donationLink('en')
                     const options = {
                         parse_mode: 'Markdown',
                         disable_web_page_preview: true,

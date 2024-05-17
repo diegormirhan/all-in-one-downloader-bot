@@ -1,13 +1,14 @@
 const { bot } = require('../src/telegram')
 const runMongoDb = require('../bot/get-userId')
 const { userUpdates } = require('./user-updates')
-
+const { idCollection } = require('../database/mongodb')
+const { donationLink } = require('../lang/donationLinks')
 
 // Create the commands
 bot.onText(/\/start/, startCommand)
 bot.onText(/\/help/, helpCommand)
 bot.onText(/\/update/, updateCommand)
-
+bot.onText(/\/donate/, donateCommand)
 
 // Create the command functions
 async function startCommand(msg) {
@@ -30,5 +31,33 @@ async function updateCommand(msg) {
         userUpdates(bot, chatId)
     } else {
         await bot.sendMessage(chatId, "You don't have permission to use this command!")
+    }
+}
+
+async function donateCommand(msg) {
+    const chatId = msg.chat.id
+    const existingDoc = await idCollection.findOne({ id: chatId });
+
+    await idCollection.updateOne({ id: chatId }, {
+        $inc: { usage: 1 },
+        $set: { lang: msg.from.language_code }
+    });
+
+    if (existingDoc.usage >= 3 && existingDoc.usage % 3 === 0) {
+        const donationsLink = donationLink(existingDoc.lang) || donationLink('en')
+        const options = {
+            parse_mode: 'Markdown',
+            disable_web_page_preview: true,
+            reply_markup: {
+                inline_keyboard: [
+                    [{
+                        text: 'Donate',
+                        url: donationsLink
+                    }]
+                ]
+            }
+        }
+
+        bot.sendMessage(chatId, '🌟 We need your support! Every donation helps us cover server and software costs to keep our bot running. Thank you! 🙏💖', options)
     }
 }
