@@ -45,7 +45,7 @@ bot.on('message', async function (msg) {
                 }
             // }
         } catch (error) {
-            console.log("Failed to send media!")
+            console.log("Failed to send media: ", msg.text)
             bot.sendMessage(chatId, 'There was an error processing your link, please try again', { parse_mode: 'Markdown' }) 
         }
     }
