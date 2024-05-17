@@ -44,9 +44,6 @@ async function donateCommand(msg) {
 
     if (existingDoc.usage >= 3 && existingDoc.usage % 3 === 0) {
         const donationsLink = donationLink(existingDoc.lang)
-        if (!donationsLink) {
-            donationsLink = donationLink('en')
-        }
         const options = {
             parse_mode: 'Markdown',
             disable_web_page_preview: true,
@@ -60,6 +57,6 @@ async function donateCommand(msg) {
             }
         }
 
-        bot.sendMessage(chatId, '🌟 We need your support! Every donation helps us cover server and software costs to keep our bot running. Thank you! 🙏💖', options)
+        await bot.sendMessage(chatId, '🌟 We need your support! Every donation helps us cover server and software costs to keep our bot running. Thank you! 🙏💖', options)
     }
 }
