@@ -10,7 +10,7 @@ const getFileSize = async (url) => {
             console.log('Error trying to get content length');
         }
     } catch (error) {
-        console.error('Erro ao buscar o tamanho do arquivo', error);
+        console.log('Erro ao buscar o tamanho do arquivo', error);
     }
 }
 

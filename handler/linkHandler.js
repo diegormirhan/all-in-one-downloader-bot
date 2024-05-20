@@ -35,6 +35,9 @@ const linkHandler = async (bot, chatId, medias) => {
     }
 
     await bot.sendMessage(chatId, '*Choose an option below:*', options)
+
+    
+    
 }
 
 const registerCallbackHandler = (bot) => {

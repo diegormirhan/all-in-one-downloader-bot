@@ -27,7 +27,7 @@ const scrapper = async (link) => {
         const response = await axios.request(options);
         return Object.values(response.data.medias);
     } catch (error) {
-        throw new Error('No media found');
+        console.log('Error: ', error)
     } 
 }
 

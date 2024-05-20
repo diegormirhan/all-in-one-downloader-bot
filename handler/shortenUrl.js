@@ -5,8 +5,7 @@ const shortenUrl = async (longUrl) => {
         const response = await axios.get(`http://tinyurl.com/api-create.php?url=${encodeURIComponent(longUrl)}`)
         return response.data;
     } catch (error) {
-        console.error('Error shortening URL:', error);
-        throw new Error('Failed to shorten URL');
+        console.log('Error shortening URL:', error);
     }
 }
 

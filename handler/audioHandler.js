@@ -14,7 +14,7 @@ const audioHandler = async (chatId, bot, audioUrl) => {
         bot.sendAudio(chatId, audioBuffer);
 
     } catch (error) {
-        console.error('Error sending audio...');
+        console.log('Error sending audio...');
         bot.sendMessage(chatId, 'An error ocurred while processing the audio.');
     }
 }
