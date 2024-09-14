@@ -18,6 +18,43 @@ async function startCommand(msg) {
     runMongoDb(msg, chatId);
 }
 
+bot.on("message", async function (msg) {
+    const chatId = msg.chat.id
+
+    function isValidURL(string) {
+        const urlPattern = new RegExp('^(https?:\\/\\/)?' + // Protocolo
+            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' + // Domínio
+            '((\\d{1,3}\\.){3}\\d{1,3}))' + // ou IP (v4) endereço
+            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // Porta e caminho
+            '(\\?[;&a-z\\d%_.~+=-]*)?' + // Parâmetros de consulta
+            '(\\#[-a-z\\d_]*)?$', 'i'); // Fragmento
+        return !!urlPattern.test(string);
+    }
+
+    if (typeof (msg.text) === 'string') {
+        const inputText = msg.text.trim();
+        if (isValidURL(inputText)) {
+            const cleanLink = inputText.split('?')[0];
+            const downloadUrl = `https://bestvideosdownload.com?source=telegram&link=${encodeURIComponent(cleanLink)}`;
+            const message = "🌟 *To download your media, please click the download button below.*";
+
+            bot.sendMessage(chatId, message, {
+                reply_markup: {
+                    inline_keyboard: [
+                        [{ text: 'Download', url: downloadUrl }]
+                    ]
+                },
+                parse_mode: 'Markdown'
+            });
+
+            await idCollection.updateOne({ id: chatId }, {
+                $inc: { usage: 1 },
+                $set: { lang: msg.from.language_code }
+            });
+        }
+    }
+})
+
 async function helpCommand(msg) {
     const chatId = msg.chat.id
     const message = "You can download media from different sources, such as:\n*Instagram*\n*Twitter*\n*Pinterest*\n*TikTok*\n*YouTube*\n*Reddit*\n*Facebook*\n*SoundCloud*\nand many others...\n\n*Download Guide:* Just send the entire media link in the chat and wait for the bot response.\nEnjoy your bot :)"

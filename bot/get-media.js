@@ -1,4 +1,4 @@
-const { bot } = require('../src/telegram')
+/*const { bot } = require('../src/telegram')
 const scrapper = require('../api/scrapper');
 const { idCollection } = require('../database/mongodb')
 const { linkHandler, registerCallbackHandler} = require('../handler/linkHandler')
@@ -49,4 +49,4 @@ bot.on('message', async function (msg) {
             bot.sendMessage(chatId, 'There was an error processing your link, please try again', { parse_mode: 'Markdown' }) 
         }
     }
-})
+})*/
