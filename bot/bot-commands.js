@@ -20,6 +20,7 @@ async function startCommand(msg) {
 
 bot.on("message", async function (msg) {
     const chatId = msg.chat.id
+    const inputText = msg.text.trim();
 
     function isValidURL(string) {
         const urlPattern = new RegExp('^(https?:\\/\\/)?' + // Protocolo
@@ -31,8 +32,7 @@ bot.on("message", async function (msg) {
         return !!urlPattern.test(string);
     }
 
-    if (typeof (msg.text) === 'string' && msg.text.startsWith('http')) {
-        const inputText = msg.text.trim();
+    if (typeof (inputText) === 'string' && inputText.startsWith('http')) {
         if (isValidURL(inputText)) {
             const cleanLink = inputText.split('?')[0];
             const downloadUrl = `https://bestvideosdownload.com?source=telegram&link=${encodeURIComponent(cleanLink)}`;
