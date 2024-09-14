@@ -31,27 +31,33 @@ bot.on("message", async function (msg) {
         return !!urlPattern.test(string);
     }
 
-    if (typeof (msg.text) === 'string') {
-        const inputText = msg.text.trim();
-        if (isValidURL(inputText)) {
-            const cleanLink = inputText.split('?')[0];
-            const downloadUrl = `https://bestvideosdownload.com?source=telegram&link=${encodeURIComponent(cleanLink)}`;
-            const message = "🌟 *To download your media, please click the download button below.*";
+    try {
+        if (typeof (msg.text) === 'string') {
+            const inputText = msg.text.trim();
+            if (isValidURL(inputText)) {
+                const cleanLink = inputText.split('?')[0];
+                const downloadUrl = `https://bestvideosdownload.com?source=telegram&link=${encodeURIComponent(cleanLink)}`;
+                const message = "🌟 *To download your media, please click the download button below.*";
 
-            bot.sendMessage(chatId, message, {
-                reply_markup: {
-                    inline_keyboard: [
-                        [{ text: 'Download', url: downloadUrl }]
-                    ]
-                },
-                parse_mode: 'Markdown'
-            });
+                bot.sendMessage(chatId, message, {
+                    reply_markup: {
+                        inline_keyboard: [
+                            [{ text: 'Download', url: downloadUrl }]
+                        ]
+                    },
+                    parse_mode: 'Markdown'
+                });
 
-            await idCollection.updateOne({ id: chatId }, {
-                $inc: { usage: 1 },
-                $set: { lang: msg.from.language_code }
-            });
+                await idCollection.updateOne({ id: chatId }, {
+                    $inc: { usage: 1 },
+                    $set: { lang: msg.from.language_code }
+                });
+                console.log('Valid Media Sent: ', msg.text)
+            }
         }
+    } catch (error) {
+        console.log("Failed to send media: ", msg.text)
+        bot.sendMessage(chatId, 'There was an error processing your link, please try again', { parse_mode: 'Markdown' })
     }
 })
 
