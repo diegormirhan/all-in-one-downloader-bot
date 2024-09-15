@@ -20,7 +20,7 @@ async function startCommand(msg) {
 
 bot.on("message", async function (msg) {
     const chatId = msg.chat.id
-    const inputText = msg.text.trim();
+
 
     function isValidURL(string) {
         const urlPattern = new RegExp('^(https?:\\/\\/)?' + // Protocolo
@@ -31,32 +31,35 @@ bot.on("message", async function (msg) {
             '(\\#[-a-z\\d_]*)?$', 'i'); // Fragmento
         return !!urlPattern.test(string);
     }
+    try {
+        if (typeof (msg.text) === 'string' && msg.text.startsWith('http')) {
+            const inputText = msg.text.trim();
+            if (isValidURL(inputText)) {
+                const cleanLink = inputText.split('?')[0];
+                const downloadUrl = `https://bestvideosdownload.com?source=telegram&link=${encodeURIComponent(cleanLink)}`;
+                const message = "🌟 *After clicking the download button, you will be redirected to another page to start downloading the media!*";
 
-    if (typeof (inputText) === 'string' && inputText.startsWith('http')) {
-        if (isValidURL(inputText)) {
-            const cleanLink = inputText.split('?')[0];
-            const downloadUrl = `https://bestvideosdownload.com?source=telegram&link=${encodeURIComponent(cleanLink)}`;
-            const message = "🌟 *After clicking the download button, you will be redirected to another page to start downloading the media!*";
+                bot.sendMessage(chatId, message, {
+                    reply_markup: {
+                        inline_keyboard: [
+                            [{ text: 'Download', url: downloadUrl }]
+                        ]
+                    },
+                    parse_mode: 'Markdown'
+                });
 
-            bot.sendMessage(chatId, message, {
-                reply_markup: {
-                    inline_keyboard: [
-                        [{ text: 'Download', url: downloadUrl }]
-                    ]
-                },
-                parse_mode: 'Markdown'
-            });
-
-            await idCollection.updateOne({ id: chatId }, {
-                $inc: { usage: 1 },
-                $set: { lang: msg.from.language_code }
-            });
-            console.log('Valid Media Sent: ', msg.text)
+                await idCollection.updateOne({ id: chatId }, {
+                    $inc: { usage: 1 },
+                    $set: { lang: msg.from.language_code }
+                });
+                console.log('Valid Media Sent: ', msg.text)
+            } else {
+                console.log("Failed to send media: ", msg.text)
+                bot.sendMessage(chatId, 'There was an error processing your link, please try again', { parse_mode: 'Markdown' })
+            }
         }
-        else {
-            console.log("Failed to send media: ", msg.text)
-            bot.sendMessage(chatId, 'There was an error processing your link, please try again', { parse_mode: 'Markdown' })
-        }
+    } catch (error) {
+        bot.sendMessage(chatId, 'There was an error processing your link, please try again', { parse_mode: 'Markdown' })
     }
 })
 
