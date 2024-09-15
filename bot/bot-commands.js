@@ -42,7 +42,7 @@ bot.on("message", async function (msg) {
                 bot.sendMessage(chatId, message, {
                     reply_markup: {
                         inline_keyboard: [
-                            [{ text: '👉 Download 🎉', url: downloadUrl }]
+                            [{ text: '👉 Download', url: downloadUrl }]
                         ]
                     },
                     parse_mode: 'Markdown'
