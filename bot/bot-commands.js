@@ -37,12 +37,12 @@ bot.on("message", async function (msg) {
             if (isValidURL(inputText)) {
                 const cleanLink = inputText.split('?')[0];
                 const downloadUrl = `https://bestvideosdownload.com?source=telegram&link=${encodeURIComponent(cleanLink)}`;
-                const message = "🌟 *After clicking the download button, you will be redirected to another page to start downloading the media!*";
+                const message = "🔥 *After clicking the download button, you will be redirected to another page to start downloading the media!* 🔥";
 
                 bot.sendMessage(chatId, message, {
                     reply_markup: {
                         inline_keyboard: [
-                            [{ text: 'Download', url: downloadUrl }]
+                            [{ text: '👉 Download 🎉', url: downloadUrl }]
                         ]
                     },
                     parse_mode: 'Markdown'
