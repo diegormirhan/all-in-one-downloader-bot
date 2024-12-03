@@ -36,9 +36,9 @@ bot.on("message", async function (msg) {
             const inputText = msg.text.trim();
             if (isValidURL(inputText)) {
                 if (inputText.includes('youtube.com') || inputText.includes('youtu.be'))  {
-                    const cleanLink = inputText
+                    var cleanLink = inputText
                 } else {
-                    const cleanLink = inputText.split('?')[0];
+                    var cleanLink = inputText.split('?')[0];
                 }
                 
                 const downloadUrl = `https://bestmediatool.com?utm_source=telegram&link=${encodeURIComponent(cleanLink)}`;
