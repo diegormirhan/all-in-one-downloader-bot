@@ -34,12 +34,10 @@ bot.on("message", async function (msg) {
     try {
         if (typeof (msg.text) === 'string' && msg.text.startsWith('http')) {
             const inputText = msg.text.trim();
+            let cleanLink;
             if (isValidURL(inputText)) {
-                if (inputText.includes('youtube.com') || inputText.includes('youtu.be'))  {
-                    var cleanLink = inputText
-                } else {
-                    var cleanLink = inputText.split('?')[0];
-                }
+                if (!inputText.includes('youtube.com') || !inputText.includes('youtu.be'))  cleanLink = inputText.split('?')[0];
+                cleanLink = inputText
                 
                 const downloadUrl = `https://bestmediatool.com?utm_source=telegram&link=${encodeURIComponent(cleanLink)}`;
                 const message = "🔥 *After clicking the download button, you will be redirected to another page to start downloading the media!* 🔥";
