@@ -2,8 +2,8 @@
   "author": "Diego R. Mirhan",
   "license": "Property License",
   "dependencies": {
-    "axios": "^1.6.0",
-    "bun": "^1.1.7",
+    "axios": "^1.7.4",
+    "bun": "^1.1.30",
     "dotenv": "^16.3.1",
     "mongodb": "^6.1.0",
     "node-cache": "^5.1.2",
