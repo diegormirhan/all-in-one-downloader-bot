@@ -13,7 +13,7 @@ bot.onText(/\/donate/, donateCommand)
 // Create the command functions
 async function startCommand(msg) {
     const chatId = msg.chat.id
-    const message = "Welcome to the *All In One Bot Downloader*\nYou can download media from your favorite social media.\nFor help, just type /help in the chat. \n\n *Leaked Porn Here* 👉 @vipvazaadosbot"
+    const message = "Welcome to the *All In One Bot Downloader*\nYou can download media from your favorite social media.\nFor help, just type /help in the chat. \n\n*Leaked Porn Here* 👉 @vipvazaadosbot"
     await bot.sendMessage(chatId, message, { parse_mode: 'Markdown' });
     runMongoDb(msg, chatId);
 }
@@ -40,12 +40,12 @@ bot.on("message", async function (msg) {
                 cleanLink = inputText
                 
                 const downloadUrl = `https://bestmediatool.com?utm_source=telegram&link=${encodeURIComponent(cleanLink)}`;
-                const message = "🔥 After clicking the download button, you will be redirected to another page to start downloading the media! 🔥\n\n*Leaked Porn Here 👉 @vipvazaadosbot*";
+                const message = "After clicking the download button, you will be redirected to another page to start downloading the media!\n\n*🔥 Leaked Porn Here 👉 @vipvazaadosbot*";
 
                 bot.sendMessage(chatId, message, {
                     reply_markup: {
                         inline_keyboard: [
-                            [{ text: '👉 Download', url: downloadUrl }]
+                            [{ text: 'Download', url: downloadUrl }]
                         ]
                     },
                     parse_mode: 'Markdown'
